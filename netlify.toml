@@ -1,3 +1,10 @@
 # Publicar solo HTML, CSS y JS. El backend Java se despliega por separado.
 [build]
   publish = "CONEXIÓN JAVA/Biblioteca_San_Lucas_Fase2_PostgreSQL/biblioteca/web"
+
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://proyecto-ing-software-h8pr.onrender.com/api/:splat"
+  status = 200
+  force = true
