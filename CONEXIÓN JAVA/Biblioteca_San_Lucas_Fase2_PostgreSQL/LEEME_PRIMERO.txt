@@ -1,0 +1,9 @@
+BIBLIOTECA SAN LUCAS - PostgreSQL
+
+Paso 1: abre la carpeta biblioteca.
+Paso 2: lee docs\03_PASOS_POSTGRESQL.md.
+Paso 3: copia el driver postgresql-42.7.14.jar en biblioteca\lib.
+Paso 4: ejecuta biblioteca\INICIAR_POSTGRESQL.bat o INICIAR_POSTGRESQL.bat de esta carpeta.
+
+El modo antiguo de prueba en archivo sigue disponible en INICIAR_AQUI.bat.
+No uses el script anterior de SQL Server con PostgreSQL.

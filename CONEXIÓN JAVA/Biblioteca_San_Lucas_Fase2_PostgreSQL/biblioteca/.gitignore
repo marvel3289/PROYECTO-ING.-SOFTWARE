@@ -1,0 +1,8 @@
+/out/
+/target/
+/datos/
+/lib/*.jar
+*.class
+*.log
+.env
+*.secret

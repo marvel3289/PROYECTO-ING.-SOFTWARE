@@ -1,0 +1,15 @@
+BIBLIOTECA WEB EN VISUAL STUDIO CODE
+
+1. Extrae el ZIP entero.
+2. En VS Code, File > Open Folder y elige la carpeta biblioteca (la que contiene src y web).
+3. Ejecuta Main.java o biblioteca.web.WebServidor.
+4. Abre http://127.0.0.1:8081/
+
+Tambien puedes abrir la carpeta exterior del ZIP. Esta version localiza la interfaz
+automaticamente incluso cuando VS Code toma la carpeta exterior como directorio actual.
+
+Para ejecutar SIN VS Code, usa INICIAR_AQUI.bat en la carpeta exterior.
+Requiere Java 17 o superior.
+
+Credenciales de prueba: admin@biblioteca.gt / Admin12345
+No publicar en Internet; proyecto preparado para pruebas locales.

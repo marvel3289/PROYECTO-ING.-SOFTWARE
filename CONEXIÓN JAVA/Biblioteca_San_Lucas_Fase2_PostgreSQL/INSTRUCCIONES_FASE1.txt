@@ -1,0 +1,25 @@
+PROYECTO INTEGRADOR — FASE 1: SQL SERVER
+Sistema de Gestión Bibliotecaria – Biblioteca San Lucas Sacatepéquez
+
+QUÉ SE ENTREGÓ:
+- Código Java actualizado para utilizar SQL Server mediante JDBC en modo opcional.
+- Modelo relacional y script SQL para usuarios, libros, ejemplares y préstamos.
+- Transacciones para registro y devolución de préstamos.
+- Inicio con SQL Server desde INICIAR_SQLSERVER.bat.
+- Modo demo anterior preservado.
+- Documentación paso a paso y modelo de relaciones.
+
+PRIMEROS PASOS:
+1) Descomprima el ZIP completo.
+2) Abra biblioteca/sql/01_crear_base_de_datos.sql en SQL Server Management Studio.
+3) Ejecute el script SQL.
+4) Descargue el Microsoft JDBC Driver para SQL Server (JAR) y cópielo a biblioteca/lib/.
+5) Ejecute biblioteca/INICIAR_SQLSERVER.bat.
+6) Ingrese su usuario y contraseña SQL, y clave inicial de administrador.
+7) En el navegador abra http://127.0.0.1:8081/.
+
+AVISO: La versión entregada compiló y pasó las 13 pruebas unitarias básicas
+más 29 comprobaciones HTTP en modo demostración. No se pudo verificar una
+conexión real a SQL Server sin acceso a la instancia del usuario.
+
+Guía detallada: biblioteca/docs/01_PASOS_SQL_SERVER.md

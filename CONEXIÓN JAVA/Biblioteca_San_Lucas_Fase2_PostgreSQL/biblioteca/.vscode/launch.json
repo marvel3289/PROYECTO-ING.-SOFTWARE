@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Biblioteca WEB (navegador)",
+      "request": "launch",
+      "mainClass": "biblioteca.web.WebServidor",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "java",
+      "name": "Pruebas de biblioteca",
+      "request": "launch",
+      "mainClass": "biblioteca.PruebasBasicas",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
