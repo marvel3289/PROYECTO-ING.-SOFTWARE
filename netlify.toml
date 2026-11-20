@@ -1,0 +1,3 @@
+# Publicar solo HTML, CSS y JS. El backend Java se despliega por separado.
+[build]
+  publish = "CONEXIÓN JAVA/Biblioteca_San_Lucas_Fase2_PostgreSQL/biblioteca/web"

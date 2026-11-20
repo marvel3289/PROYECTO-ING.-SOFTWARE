@@ -17,8 +17,10 @@ import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/** API HTTP + interfaz estática; sin bibliotecas externas, diseñada para pruebas LOCALES. */
+/** API HTTP + interfaz estática. Detrás de un proxy HTTPS puede servir un despliegue de pruebas en la nube. */
 public final class WebServidor {
+    private static final boolean PUBLICO = "true".equalsIgnoreCase(
+            System.getenv().getOrDefault("BIBLIOTECA_PUBLICO", "false"));
     private final UsuarioServicio usuarios;
     private final CatalogoServicio catalogo;
     private final PrestamoServicio prestamos;
@@ -43,10 +45,16 @@ public final class WebServidor {
     }
 
     public static void main(String[] args) throws Exception {
-        int puerto = Integer.parseInt(System.getenv().getOrDefault("BIBLIOTECA_PUERTO", "8081"));
+        int puerto = Integer.parseInt(System.getenv().getOrDefault("BIBLIOTECA_PUERTO",
+                System.getenv().getOrDefault("PORT", "8081")));
         String host = System.getenv().getOrDefault("BIBLIOTECA_HOST", "127.0.0.1");
         Path base = localizarProyecto();
         String modo = System.getenv().getOrDefault("BIBLIOTECA_MODO", "archivo").toLowerCase(Locale.ROOT);
+        if (PUBLICO && !modo.equals("postgresql"))
+            throw new IllegalStateException("El despliegue público exige BIBLIOTECA_MODO=postgresql; no se permiten datos de demostración.");
+        if (PUBLICO && (System.getenv("BIBLIOTECA_DB_URL") == null
+                || System.getenv("BIBLIOTECA_DB_URL").isBlank()))
+            throw new IllegalStateException("Configure BIBLIOTECA_DB_URL para la base PostgreSQL remota.");
         WebServidor app;
         if (modo.equals("postgresql")) {
             PostgreSql sql = PostgreSql.desdeEntorno();
@@ -103,7 +111,7 @@ public final class WebServidor {
         server.start();
         System.out.println("Biblioteca Web disponible en http://" + host + ":" + puerto + "/");
         if (!host.equals("127.0.0.1") && !host.equals("localhost"))
-            System.err.println("AVISO: Este servidor de prueba no tiene HTTPS; no lo exponga a Internet.");
+            System.err.println("IMPORTANTE: publique este servicio únicamente detrás de un proxy HTTPS y con contraseñas seguras.");
     }
 
     /** Encuentra la carpeta web tanto al ejecutar desde biblioteca como desde su carpeta padre (VS Code). */
@@ -236,7 +244,7 @@ public final class WebServidor {
             byte[] bytes = new byte[32]; aleatorio.nextBytes(bytes);
             String token = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
             sesiones.put(token, new Sesion(u.getId(), Instant.now().plusSeconds(8 * 3600)));
-            ex.getResponseHeaders().add("Set-Cookie", "BIBSESION=" + token + "; Path=/; HttpOnly; SameSite=Strict; Max-Age=28800");
+            ex.getResponseHeaders().add("Set-Cookie", "BIBSESION=" + token + "; Path=/; HttpOnly; SameSite=Strict; Max-Age=28800" + (PUBLICO ? "; Secure" : ""));
             respuesta = usuario(u);
         } else if (ruta.equals("/api/logout")) {
             exigirMetodo(ex, "POST");
@@ -244,7 +252,7 @@ public final class WebServidor {
             if (cookie != null) for (String c : cookie.split(";")) {
                 c = c.trim(); if (c.startsWith("BIBSESION=")) sesiones.remove(c.substring(10));
             }
-            ex.getResponseHeaders().add("Set-Cookie", "BIBSESION=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0");
+            ex.getResponseHeaders().add("Set-Cookie", "BIBSESION=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0" + (PUBLICO ? "; Secure" : ""));
             respuesta = Map.of("ok", true);
         } else {
             Usuario u = actor(ex);
