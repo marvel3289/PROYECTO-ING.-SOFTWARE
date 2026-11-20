@@ -1,0 +1,6 @@
+Copie aqui el archivo JAR oficial de Microsoft JDBC Driver for SQL Server
+compatible con su Java (JRE 17 o superior), por ejemplo un archivo mssql-jdbc-*.jre11.jar.
+No se incluye el controlador de terceros en esta entrega.
+NO copie su contrasena ni archivos con credenciales a esta carpeta.
+Guia oficial de Microsoft:
+https://learn.microsoft.com/es-es/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server

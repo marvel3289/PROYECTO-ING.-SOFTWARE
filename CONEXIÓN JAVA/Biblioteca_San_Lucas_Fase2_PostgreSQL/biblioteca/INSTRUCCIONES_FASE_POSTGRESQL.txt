@@ -1,0 +1,5 @@
+1. Lea docs\03_PASOS_POSTGRESQL.md
+2. Descargue JDBC en https://jdbc.postgresql.org/download/ y copie postgresql-42.7.14.jar a lib\
+3. Haga doble clic en INICIAR_POSTGRESQL.bat
+4. Introduzca contrasena PostgreSQL, luego cree contrasena inicial de administrador (min 12 caracteres)
+5. Abra http://127.0.0.1:8081/
